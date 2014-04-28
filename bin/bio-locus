@@ -9,9 +9,6 @@ $: << File.join(gempath,'lib')
 VERSION_FILENAME=File.join(gempath,'VERSION')
 version = File.new(VERSION_FILENAME).read.chomp
 
-# print banner
-print "bio-locus #{version} (biogem Ruby #{RUBY_VERSION}) by Pjotr Prins 2014\n"
-
 if ARGV.size == 0
   print USAGE
 end
@@ -87,6 +84,7 @@ end
 case options[:task] 
   when :store then
     require 'bio-locus/store'
+    BioLocus::Store.run(options)    
   else
     raise "I do not know what to do!"
 end

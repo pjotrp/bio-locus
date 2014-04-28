@@ -10,19 +10,22 @@ This tool essentially allows your to store this information in a Hash
 or database:
 
 ```sh
-  bio-locus --store one.vcf 
+  bio-locus --store < one.vcf 
 ```
 
 which creates a cache file. To find positions in another dataset which
 match those in the cache:
 
 ```sh
-  bio-locus --match two.vcf
+  bio-locus --match < two.vcf
 ```
+
+Main point is that this is a two-step process, first create the database, next query it.
 
 Why would you use bio-locus?
 
 * Mostly to reduce the size of large SNP databases before storage/querying
+* To gain performance
 
 Note: At this point an in-memory cache is simply stored on disk. Soon we may
 implement a real back-end.
