@@ -4,7 +4,7 @@ module BioLocus
 
   module Store
     def Store.run(options)
-      store = Moneta.new(:LocalMemCache, file: 'cache.db')
+      store = Moneta.new(:LocalMemCache, file: options[:db])
      
       count = 0 
       STDIN.each_line do | line |

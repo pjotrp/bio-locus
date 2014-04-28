@@ -23,7 +23,7 @@ require 'optparse'
 # Bio::Log::CLI.logger('stderr')
 # Bio::Log::CLI.trace('info')
 
-options = {:task=>nil,:show_help=>false}
+options = {task: nil, db: 'locus.db', show_help: false}
 opts = OptionParser.new do |o|
   o.banner = "Usage: #{File.basename($0)} [options] filename\ne.g. #{File.basename($0)} test.txt"
 
@@ -34,6 +34,10 @@ opts = OptionParser.new do |o|
   
   o.on("--store", 'Create a cache file') do
     options[:task] = :store
+  end
+
+  o.on("--db filename",String,"Use db file") do | fn |
+    options[:db] = fn
   end
 
   # Uncomment the following when using the bio-logger 
