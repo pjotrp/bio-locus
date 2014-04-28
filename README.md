@@ -13,8 +13,8 @@ or database:
   bio-locus --store < one.vcf 
 ```
 
-which creates a cache file. To find positions in another dataset which
-match those in the cache:
+which adds to a cache file or database. To find positions in another dataset which
+match those in the database:
 
 ```sh
   bio-locus --match < two.vcf

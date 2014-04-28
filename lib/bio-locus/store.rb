@@ -5,7 +5,6 @@ module BioLocus
   module Store
     def Store.run(options)
       store = Moneta.new(:LocalMemCache, file: options[:db])
-     
       count = 0 
       STDIN.each_line do | line |
         if line =~ /^[[:alnum:]]+/

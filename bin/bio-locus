@@ -23,6 +23,10 @@ opts = OptionParser.new do |o|
   o.on("--store", 'Create a cache file') do
     options[:task] = :store
   end
+  o.on("--match", 'Match a cache file') do
+    options[:task] = :match
+  end
+
 
   o.on("--db filename",String,"Use db file") do | fn |
     options[:db] = fn
@@ -62,7 +66,10 @@ end
 case options[:task] 
   when :store then
     require 'bio-locus/store'
-    BioLocus::Store.run(options)    
+    BioLocus::Store.run(options)
+  when :match then
+    require 'bio-locus/match'
+    BioLocus::Match.run(options)
   else
     raise "I do not know what to do!"
 end
