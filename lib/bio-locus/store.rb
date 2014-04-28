@@ -1,14 +1,21 @@
 module BioLocus
+
+  require 'moneta'
+
   module Store
     def Store.run(options)
-      h = {}
+      store = Moneta.new(:LocalMemCache, file: 'cache.db')
+     
+      count = 0 
       STDIN.each_line do | line |
         if line =~ /^[[:alnum:]]+/
-          id = line.split(/\t/,3)[0..1].join("\t")
-          h[id] = true
+          chr,pos,rest = line.split(/\t/,3)[0..1]
+          store[chr+"\t"+pos] = true
+          count += 1
         end
       end
-      p h
+      store.close
+      $stderr.print "Stored #{count} positions\n"
     end
   end
 end
