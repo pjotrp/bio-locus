@@ -15,7 +15,7 @@ module BioLocus
         end
       end
       store.close
-      $stderr.print "Stored #{count} positions\n"
+      $stderr.print "Stored #{count} positions\n" if !options[:quiet]
     end
   end
 end
