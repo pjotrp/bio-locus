@@ -2,7 +2,26 @@
 
 [![Build Status](https://secure.travis-ci.org/pjotrp/bioruby-locus.png)](http://travis-ci.org/pjotrp/bioruby-locus)
 
-Full description goes here
+Bio-locus is a tool for fast querying of genome locations. Many file
+formats in bioinformatics contain records that start with a chromosome
+name and a position for a SNP, or a start-end position for indels. 
+
+This tool essentially allows your to store this information in a Hash
+or database:
+
+```sh
+  locus-store one.vcf 
+```
+
+which creates a cache file. To find positions in another dataset which
+match those in the cache:
+
+```sh
+  locus-match two.vcf
+```
+
+At this point an in-memory cache is simply stored on disk. Soon we may
+implement a real back-end.
 
 Note: this software is under active development!
 
