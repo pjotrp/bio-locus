@@ -86,7 +86,7 @@ end
 
 case options[:task] 
   when :store then
-    hhh
+    require 'bio-locus/store'
   else
     raise "I do not know what to do!"
 end

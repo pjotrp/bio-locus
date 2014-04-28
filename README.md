@@ -20,6 +20,10 @@ match those in the cache:
   bio-locus --match two.vcf
 ```
 
+Why would you use bio-locus?
+
+* Mostly to reduce the size of large SNP databases before storage/querying
+
 Note: At this point an in-memory cache is simply stored on disk. Soon we may
 implement a real back-end.
 
