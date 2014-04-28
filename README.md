@@ -10,17 +10,17 @@ This tool essentially allows your to store this information in a Hash
 or database:
 
 ```sh
-  locus-store one.vcf 
+  bio-locus --store one.vcf 
 ```
 
 which creates a cache file. To find positions in another dataset which
 match those in the cache:
 
 ```sh
-  locus-match two.vcf
+  bio-locus --match two.vcf
 ```
 
-At this point an in-memory cache is simply stored on disk. Soon we may
+Note: At this point an in-memory cache is simply stored on disk. Soon we may
 implement a real back-end.
 
 Note: this software is under active development!

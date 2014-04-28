@@ -1,10 +1,7 @@
 #!/usr/bin/env ruby
 #
-# BioRuby bio-locus Plugin BioLocus
-# Author:: Pjotr Prins
-# Copyright:: 2014
 
-USAGE = "Describe bio-locus"
+USAGE = "Use --help for info\n"
 
 gempath = File.dirname(File.dirname(__FILE__))
 $: << File.join(gempath,'lib')
@@ -29,19 +26,17 @@ require 'optparse'
 # Bio::Log::CLI.logger('stderr')
 # Bio::Log::CLI.trace('info')
 
-options = {:example_switch=>false,:show_help=>false}
+options = {:task=>nil,:show_help=>false}
 opts = OptionParser.new do |o|
   o.banner = "Usage: #{File.basename($0)} [options] filename\ne.g. #{File.basename($0)} test.txt"
 
-  o.on('--example_parameter [EXAMPLE_PARAMETER]', 'TODO: put a description for the PARAMETER') do |example_parameter|
+  # o.on('--example_parameter [EXAMPLE_PARAMETER]', 'TODO: put a description for the PARAMETER') do |example_parameter|
     # TODO: your logic here, below an example
-    options[:example_parameter] = 'this is a parameter'
-  end
+  #   options[:example_parameter] = 'this is a parameter'
+  # end
   
-  o.separator ""
-  o.on("--switch-example", 'TODO: put a description for the SWITCH') do
-    # TODO: your logic here, below an example
-    self[:example_switch] = true
+  o.on("--store", 'Create a cache file') do
+    options[:task] = :store
   end
 
   # Uncomment the following when using the bio-logger 
@@ -54,14 +49,14 @@ opts = OptionParser.new do |o|
   #   Bio::Log::CLI.trace(s)
   # end
   # 
-  # o.on("-q", "--quiet", "Run quietly") do |q|
-  #   Bio::Log::CLI.trace('error')
-  # end
-  # 
-  # o.on("-v", "--verbose", "Run verbosely") do |v|
-  #   Bio::Log::CLI.trace('info')
-  # end
-  # 
+  o.on("-q", "--quiet", "Run quietly") do |q|
+    options[:quiet] = true
+  end
+   
+  o.on("-v", "--verbose", "Run verbosely") do |v|
+    options[:verbose] = true
+  end
+   
   # o.on("--debug", "Show debug messages") do |v|
   #   Bio::Log::CLI.trace('debug')
   # end
@@ -75,15 +70,23 @@ end
 begin
   opts.parse!(ARGV)
 
-  # Uncomment when using the bio-logger
-  # Bio::Log::CLI.configure('bio-locus')
-  # logger = Bio::Log::LoggerPlus['bio-locus']
-  # Log parsed options and remaining arguments in ARGV
-  # logger.info [options, ARGV]
+ $stderr.print "bio-locus #{version} (biogem Ruby #{RUBY_VERSION}) by Pjotr Prins 2014\n" if !options[:quiet]
 
-  # TODO: your code here
-  # use options for your logic
+  if options[:show_help] 
+    print opts 
+    print USAGE
+    exit 1
+  end
+
+  $stderr.print "Options: ",options,"\n" if !options[:quiet]
+
 rescue OptionParser::InvalidOption => e
   options[:invalid_argument] = e.message
 end
 
+case options[:task] 
+  when :store then
+    hhh
+  else
+    raise "I do not know what to do!"
+end
