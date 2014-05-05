@@ -40,6 +40,10 @@ opts = OptionParser.new do |o|
     options[:verbose] = true
   end
    
+  o.on("-d", "--debug", "Debug mode") do |v|
+    options[:debug] = true
+  end
+   
   o.separator ""
   o.on_tail('-h', '--help', 'display this help and exit') do
     options[:show_help] = true

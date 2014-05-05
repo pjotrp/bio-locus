@@ -17,8 +17,10 @@ module BioLocus
             end
             count += 1
             $stderr.print '.' if (count % 1_000_000) == 0 if not options[:quiet]
+            next
           end
         end
+        $stderr.print "Warning: did not store ",line
       end
       store.close
       $stderr.print "Stored #{count_new} positions out of #{count} in #{options[:db]}\n" if !options[:quiet]
