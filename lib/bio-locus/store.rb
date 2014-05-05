@@ -5,7 +5,7 @@ module BioLocus
   module Store
     def Store.run(options)
       store = Moneta.new(:LocalMemCache, file: options[:db])
-      count = count_new = 0 
+      count = count_new = count_dup = 0
       STDIN.each_line do | line |
         if line =~ /^[[:alnum:]]+/
           chr,pos,rest = line.split(/\t/,3)[0..1]
@@ -15,6 +15,7 @@ module BioLocus
               count_new += 1 
               store[key] = true
             else
+              count_dup += 1
               $stderr.print "Already in store: "
               p [chr,pos]
             end
@@ -26,7 +27,7 @@ module BioLocus
         $stderr.print "Warning: did not store ",line
       end
       store.close
-      $stderr.print "Stored #{count_new} positions out of #{count} in #{options[:db]}\n" if !options[:quiet]
+      $stderr.print "Stored #{count_new} positions out of #{count} in #{options[:db]} (#{count_dup} duplicates)\n" if !options[:quiet]
     end
   end
 end
