@@ -16,6 +16,7 @@ module BioLocus
               store[key] = true
             end
             count += 1
+            $stderr.print '.' if (count % 1_000_000) == 0 if not options[:quiet]
           end
         end
       end
