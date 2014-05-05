@@ -16,18 +16,20 @@ module BioLocus
               store[key] = true
             else
               count_dup += 1
-              $stderr.print "Already in store: "
-              p [chr,pos]
+              if options[:debug]
+                $stderr.print "Store hit: "
+                p [chr,pos]
+              end
             end
             count += 1
             $stderr.print '.' if (count % 1_000_000) == 0 if not options[:quiet]
             next
           end
         end
-        $stderr.print "Warning: did not store ",line
+        $stderr.print "Warning: did not store ",line if options[:debug]
       end
       store.close
-      $stderr.print "Stored #{count_new} positions out of #{count} in #{options[:db]} (#{count_dup} duplicates)\n" if !options[:quiet]
+      $stderr.print "Stored #{count_new} positions out of #{count} in #{options[:db]} (#{count_dup} hits)\n" if !options[:quiet]
     end
   end
 end
