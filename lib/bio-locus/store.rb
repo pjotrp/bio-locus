@@ -14,6 +14,9 @@ module BioLocus
             if not store[key]
               count_new += 1 
               store[key] = true
+            else
+              $stderr.print "Already in store: "
+              p [chr,pos]
             end
             count += 1
             $stderr.print '.' if (count % 1_000_000) == 0 if not options[:quiet]
