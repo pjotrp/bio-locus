@@ -4,7 +4,7 @@
 
 Bio-locus is a tool for fast querying of genome locations. Many file
 formats in bioinformatics contain records that start with a chromosome
-name and a position for a SNP, or a start-end position for indels. 
+name and a position for a SNP, or a start-end position for indels.
 
 This tool essentially allows your to store this information in a Hash
 or database:
@@ -13,19 +13,23 @@ or database:
   bio-locus --store < one.vcf 
 ```
 
-which adds to a cache file or database. To find positions in another dataset which
-match those in the database:
+which creates or adds to a cache file or database. To find positions
+in another dataset which match those in the database:
 
 ```sh
   bio-locus --match < two.vcf
 ```
 
-Main point is that this is a two-step process, first create the database, next query it.
+Main point is that this is a two-step process, first create the
+indexed database, next query it.
 
 Why would you use bio-locus?
 
-* Mostly to reduce the size of large SNP databases before storage/querying
+* To reduce the size of large SNP databases before storage/querying
 * To gain performance
+
+In short a more targetted approach allowing you to work with less
+data.
 
 Note: for the storage the [moneta](https://github.com/minad/moneta) gem is used, currently with localmemcache.
 

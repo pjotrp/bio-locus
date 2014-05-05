@@ -8,16 +8,18 @@ module BioLocus
       lines = 0 
       count = 0
       STDIN.each_line do | line |
-        lines += 1
         $stderr.print '.' if (lines % 1_000_000) == 0 if not options[:quiet]
         chr,pos,rest = line.split(/\t/,3)[0..1]
-        if chr and pos and store[chr+"\t"+pos]
-          count += 1
-          print line
+        if chr and pos and pos =~ /^\d+$/
+          lines += 1
+          if store[chr+"\t"+pos]
+            count += 1
+            print line
+          end
         end
       end
       store.close
-      $stderr.print "\nMatched #{count} in #{lines} lines!\n" if not options[:quiet]
+      $stderr.print "\nMatched #{count} out of #{lines} lines in #{options[:db]}!\n" if not options[:quiet]
     end
   end
 end
