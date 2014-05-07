@@ -58,6 +58,15 @@ Note: this software is under active development!
 gem install bio-locus
 ```
 
+## Command line
+
+In addition to --store and --match mentioned above there are a number
+of options available through
+
+```sh
+bio-locus --help
+```
+
 ## Usage
 
 ```ruby
