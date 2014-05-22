@@ -17,10 +17,9 @@ module BioLocus
           in_header = false
         end
         $stderr.print '.' if (lines % 1_000_000) == 0 if not options[:quiet]
-        chr,pos,rest = line.split(/\t/,3)[0..1]
-        if chr and pos and pos =~ /^\d+$/
+        Keys::each_key(line,options[:include_alt]) do | key |
           lines += 1
-          if store[chr+"\t"+pos]
+          if store[key]
             count += 1
             print line
           end
