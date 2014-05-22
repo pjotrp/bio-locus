@@ -8,6 +8,7 @@ module BioLocus
       lines = 0 
       count = 0
       in_header = true
+      uniq = {}
       STDIN.each_line do | line |
         if in_header and line =~ /^#/
           # Retain comments in header (for VCF)
@@ -22,11 +23,12 @@ module BioLocus
           if store[key]
             count += 1
             print line
+            uniq[key] ||= true
           end
         end
       end
       store.close
-      $stderr.print "\nMatched #{count} out of #{lines} lines in #{options[:db]}!\n" if not options[:quiet]
+      $stderr.print "\nMatched #{count} (unique #{uniq.keys.size}) lines out of #{lines} in #{options[:db]}!\n" if not options[:quiet]
     end
   end
 end
