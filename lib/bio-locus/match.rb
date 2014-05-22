@@ -16,9 +16,9 @@ module BioLocus
         else
           in_header = false
         end
+        lines += 1
         $stderr.print '.' if (lines % 1_000_000) == 0 if not options[:quiet]
         Keys::each_key(line,options[:include_alt]) do | key |
-          lines += 1
           if store[key]
             count += 1
             print line
