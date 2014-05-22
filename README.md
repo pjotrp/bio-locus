@@ -20,13 +20,15 @@ in another dataset which match those in the database:
   bio-locus --match < two.vcf
 ```
 
-Main point is that this is a two-step process, first create the
+The point is that this is a two-step process, first create the
 indexed database, next query it.
 
 Why would you use bio-locus?
 
 * To reduce the size of large SNP databases before storage/querying
 * To gain performance
+* To filter on chr+pos (default)
+* To filter on chr+pos+field (where field can be a VCF ALT)
 
 In short a more targeted approach allowing you to work with less data. This
 tool is decently fast. For example, looking for 130 positions in 20 million SNPs
@@ -49,8 +51,6 @@ cat gonl.*.vcf |./bin/bio-locus --match
 takes 
 
 Note: for the storage the [moneta](https://github.com/minad/moneta) gem is used, currently with localmemcache.
-
-Note: this software is under active development!
 
 ## Installation
 

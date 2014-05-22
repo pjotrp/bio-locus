@@ -27,6 +27,9 @@ opts = OptionParser.new do |o|
     options[:task] = :match
   end
 
+  o.on("--include-alt", 'Include chr+pos+ALT VCF field to filter') do
+    options[:include_alt] = true
+  end
 
   o.on("--db filename",String,"Use db file") do | fn |
     options[:db] = fn
