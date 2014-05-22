@@ -48,9 +48,10 @@ cat gonl.*.vcf |./bin/bio-locus --match
   sys     0m1.868s
 ```
 
-takes 
-
 Note: for the storage the [moneta](https://github.com/minad/moneta) gem is used, currently with localmemcache.
+
+Note: the ALT field is split into components for matching, so A,C
+becomes two chr+pos records.
 
 ## Installation
 
