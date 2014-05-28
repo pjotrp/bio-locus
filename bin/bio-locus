@@ -16,13 +16,14 @@ end
 require 'bio-locus'
 require 'optparse'
 
-options = {task: nil, db: 'locus.db', show_help: false}
+options = {task: nil, db: 'locus.db', show_help: false, header: 1}
 opts = OptionParser.new do |o|
   o.banner = "Usage: #{File.basename($0)} [options] filename\ne.g. #{File.basename($0)} test.txt"
 
   o.on("--store", 'Create a cache file') do
     options[:task] = :store
   end
+
   o.on("--match", 'Match a cache file') do
     options[:task] = :match
   end
@@ -35,6 +36,18 @@ opts = OptionParser.new do |o|
     options[:db] = fn
   end
 
+  o.on("--eval-chr expr",String,"Evaluate record to retrieve chr name") do | expr |
+    options[:eval_chr] = expr
+  end
+
+  o.on("--eval-pos expr",String,"Evaluate record to retrieve position") do | expr |
+    options[:eval_pos] = expr
+  end
+  
+  o.on("--header num", "Header lines (default 1)") do |l|
+    options[:header] = l.to_i
+  end
+   
   o.on("-q", "--quiet", "Run quietly") do |q|
     options[:quiet] = true
   end
@@ -46,7 +59,12 @@ opts = OptionParser.new do |o|
   o.on("-d", "--debug", "Debug mode") do |v|
     options[:debug] = true
   end
-   
+
+  o.on("-i", "--ignore-errors", "Continue on error") do 
+    options[:ignore_errors] = true
+  end
+
+
   o.separator ""
   o.on_tail('-h', '--help', 'display this help and exit') do
     options[:show_help] = true
@@ -69,6 +87,8 @@ begin
 rescue OptionParser::InvalidOption => e
   options[:invalid_argument] = e.message
 end
+
+(0..options[:header]).each { STDIN.gets }
 
 case options[:task] 
   when :store then

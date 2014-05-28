@@ -7,7 +7,7 @@ module BioLocus
       store = Moneta.new(:LocalMemCache, file: options[:db])
       count = count_new = count_dup = 0
       STDIN.each_line do | line |
-        Keys::each_key(line,options[:include_alt]) do | key |
+        Keys::each_key(line,options) do | key |
           if not store[key]
             count_new += 1 
             store[key] = true
