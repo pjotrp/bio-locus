@@ -37,7 +37,7 @@ opts = OptionParser.new do |o|
     options[:include_alt] = true
   end
 
-  o.on("--exclude-alt", 'Exclude chr+pos+ALT field from storing') do
+  o.on("--exclude-alt", 'Override adding chr+pos+ALT field to store') do
     options[:exclude_alt] = true
   end
 
