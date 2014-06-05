@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "bio-locus"
   gem.homepage = "http://github.com/pjotrp/bioruby-locus"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Fast storage and comparison of chr+pos(+alt) locations}
+  gem.description = %Q{A tool for fast querying and filtering of genome locations in VCF and other formats}
   gem.email = "pjotr.public01@thebird.nl"
   gem.authors = ["Pjotr Prins"]
   # dependencies defined in Gemfile
