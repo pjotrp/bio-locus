@@ -22,7 +22,7 @@ module BioLocus
           field = fields
           alt = eval(options[:eval_alt])
         end
-        p [chr,pos] if options[:debug]
+        p [:debug,chr,pos,alt] if options[:debug]
 
         # If we have a position emit it
         if pos =~ /^\d+$/ and chr and chr != ''

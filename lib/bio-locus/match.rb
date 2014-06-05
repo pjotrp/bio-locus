@@ -22,6 +22,7 @@ module BioLocus
         $stderr.print '.' if (lines % 1_000_000) == 0 if not options[:quiet]
         Keys::each_key(line,options) do | key |
           if store[key]
+            $stderr.print "Matched <#{key}>\n" if options[:debug]
             count += 1
             if do_delete
               store.delete(key)
@@ -34,7 +35,7 @@ module BioLocus
       end
       store.close
       if do_delete
-        $stderr.print "\nDeleted #{count} keys representing #{lines} in #{options[:db]}!\n" if not options[:quiet]
+        $stderr.print "\nDeleted #{count} keys in #{options[:db]} reading #{lines} lines !\n" if not options[:quiet]
       else
         $stderr.print "\nMatched #{count} (unique #{uniq.keys.size}) lines out of #{lines} in #{options[:db]}!\n" if not options[:quiet]
       end
