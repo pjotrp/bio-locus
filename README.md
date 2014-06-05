@@ -82,6 +82,37 @@ of options available through
 bio-locus --help
 ```
 
+### Deleting keys
+
+To delete entries use 
+
+```sh
+  bio-locus --delete < two.vcf
+```
+
+To match with alt use
+
+```sh
+  bio-locus --delete --include-alt < two.vcf
+```
+
+You may need to run both with and without alt, depending on your needs!
+
+### Parsing
+
+It is possible to use any line based format. For example parsing the
+alt from
+
+```
+X       107976940       G/C     -1      5       5       0.75    H879D   0      IRS4     CCDS14544       Cat/Gat rs1801164       missense_variant        ENST00000372129.2:c.2635C>G
+```
+
+can be done with
+
+```sh
+bio-locus --store --eval-alt 'field[2].split(/\//)[1]'
+```
+
 ### COSMIC
 
 COSMIC is pretty large, so it can be useful to cut the database down to the

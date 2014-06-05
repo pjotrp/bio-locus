@@ -37,6 +37,11 @@ opts = OptionParser.new do |o|
     options[:include_alt] = true
   end
 
+  o.on("--exclude-alt", 'Exclude chr+pos+ALT field from storing') do
+    options[:exclude_alt] = true
+  end
+
+
   o.on("--db filename",String,"Use db file") do | fn |
     options[:db] = fn
   end
@@ -47,6 +52,10 @@ opts = OptionParser.new do |o|
 
   o.on("--eval-pos expr",String,"Evaluate record to retrieve position") do | expr |
     options[:eval_pos] = expr
+  end
+
+  o.on("--eval-alt expr",String,"Evaluate record to retrieve alt list") do | expr |
+    options[:eval_alt] = expr
   end
   
   o.on("--header num", "Header lines (default 1)") do |l|
@@ -98,8 +107,9 @@ end
 case options[:task] 
   when :store then
     require 'bio-locus/store'
+    options[:include_alt]=false if options[:exclude_alt]
     BioLocus::Store.run(options)
-  when :match then
+  when :match ,:delete then
     require 'bio-locus/match'
     BioLocus::Match.run(options)
   else

@@ -4,6 +4,7 @@ module BioLocus
 
   module Match
     def Match.run(options)
+      do_delete = (options[:task] == :delete)
       store = Moneta.new(:LocalMemCache, file: options[:db])
       lines = 0 
       count = 0
@@ -22,13 +23,21 @@ module BioLocus
         Keys::each_key(line,options) do | key |
           if store[key]
             count += 1
-            print line
-            uniq[key] ||= true
+            if do_delete
+              store.delete(key)
+            else
+              print line
+              uniq[key] ||= true
+            end
           end
         end
       end
       store.close
-      $stderr.print "\nMatched #{count} (unique #{uniq.keys.size}) lines out of #{lines} in #{options[:db]}!\n" if not options[:quiet]
+      if do_delete
+        $stderr.print "\nDeleted #{count} keys representing #{lines} in #{options[:db]}!\n" if not options[:quiet]
+      else
+        $stderr.print "\nMatched #{count} (unique #{uniq.keys.size}) lines out of #{lines} in #{options[:db]}!\n" if not options[:quiet]
+      end
     end
   end
 end

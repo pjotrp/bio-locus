@@ -14,8 +14,7 @@ module BioLocus
           else
             count_dup += 1
             if options[:debug]
-              $stderr.print "Store hit: "
-              $stderr.print key,"\n"
+              $stderr.print "Store hit: <#{key}>\n"
             end
           end
           count += 1

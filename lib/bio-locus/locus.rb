@@ -7,7 +7,7 @@ module BioLocus
         # The default layout (VCF) may or may not work
         chr,pos,id,no_use,alt,rest = line.split(/\t/,6)[0..-1]
         # Override parsing with
-        if options[:eval_chr]/
+        if options[:eval_chr]
           fields ||= line.split(/\t/)
           field = fields
           chr = eval(options[:eval_chr])
@@ -17,11 +17,16 @@ module BioLocus
           field = fields
           pos = eval(options[:eval_pos])
         end
+        if options[:eval_alt] 
+          fields ||= line.split(/\t/)
+          field = fields
+          alt = eval(options[:eval_alt])
+        end
         p [chr,pos] if options[:debug]
 
         # If we have a position emit it
         if pos =~ /^\d+$/ and chr and chr != ''
-          alts = ['']  # empty position
+          alts = ['']  # position only
           alts += alt.split(/,/) if options[:include_alt]
           alts.each do | nuc |
             key = chr+"\t"+pos
