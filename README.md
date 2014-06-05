@@ -13,15 +13,24 @@ or database:
   bio-locus --store < one.vcf 
 ```
 
-which creates or adds to a cache file or database. To find positions
-in another dataset which match those in the database:
+which creates or adds to a cache file or database with unique entries
+for all listed positions (chr+pos) AND for all listed positions with
+listed alt alleles. To find positions in another dataset which match
+those in the database:
 
 ```sh
   bio-locus --match < two.vcf
 ```
 
 The point is that this is a two-step process, first create the
-indexed database, next query it.
+indexed database, next query it. It is also possible to remove entries
+with the --delete switch.
+
+To match with alt use
+
+```sh
+  bio-locus --match --include-alt < two.vcf
+```
 
 Why would you use bio-locus?
 
@@ -29,6 +38,11 @@ Why would you use bio-locus?
 * To gain performance
 * To filter on chr+pos (default)
 * To filter on chr+pos+field (where field can be a VCF ALT)
+
+Use cases are 
+
+* To filter for annotated variants
+* To remove common variants from a set
 
 In short a more targeted approach allowing you to work with less data. This
 tool is decently fast. For example, looking for 130 positions in 20 million SNPs
@@ -51,7 +65,7 @@ cat gonl.*.vcf |./bin/bio-locus --match
 Note: for the storage the [moneta](https://github.com/minad/moneta) gem is used, currently with localmemcache.
 
 Note: the ALT field is split into components for matching, so A,C
-becomes two chr+pos records.
+becomes two chr+pos records, one for A and one for C.
 
 ## Installation
 

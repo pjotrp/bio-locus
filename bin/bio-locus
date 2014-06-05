@@ -20,8 +20,13 @@ options = {task: nil, db: 'locus.db', show_help: false, header: 1}
 opts = OptionParser.new do |o|
   o.banner = "Usage: #{File.basename($0)} [options] filename\ne.g. #{File.basename($0)} test.txt"
 
-  o.on("--store", 'Create a cache file') do
+  o.on("--store", 'Create or add to a cache file') do
     options[:task] = :store
+    options[:include_alt] = true  # always include alt
+  end
+
+  o.on("--delete", 'Remove matches from a cache file') do
+    options[:task] = :delete
   end
 
   o.on("--match", 'Match a cache file') do
