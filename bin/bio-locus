@@ -16,7 +16,7 @@ end
 require 'bio-locus'
 require 'optparse'
 
-options = {task: nil, db: 'locus.db', show_help: false, header: 1}
+options = {task: nil, db: 'locus.db', show_help: false, header: 1, in_format: :vcf}
 opts = OptionParser.new do |o|
   o.banner = "Usage: #{File.basename($0)} [options] filename\ne.g. #{File.basename($0)} test.txt"
 
@@ -41,9 +41,12 @@ opts = OptionParser.new do |o|
     options[:exclude_alt] = true
   end
 
-
   o.on("--db filename",String,"Use db file") do | fn |
     options[:db] = fn
+  end
+
+  o.on('--in-format [vcf,snv]', [:vcf,:snv], 'Input format (default vcf)') do |par|
+    options[:in_format] = par.to_sym
   end
 
   o.on("--eval-chr expr",String,"Evaluate record to retrieve chr name") do | expr |

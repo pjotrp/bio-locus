@@ -113,6 +113,8 @@ can be done with
 bio-locus --store --eval-alt 'field[2].split(/\//)[1]'
 ```
 
+Actually, if the --in-format is 'snv', this is exactly what is used.
+
 ### COSMIC
 
 COSMIC is pretty large, so it can be useful to cut the database down to the

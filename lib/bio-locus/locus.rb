@@ -6,6 +6,12 @@ module BioLocus
         fields = nil
         # The default layout (VCF) may or may not work
         chr,pos,id,no_use,alt,rest = line.split(/\t/,6)[0..-1]
+        case options[:in_format]
+          when :snv then
+            fields ||= line.split(/\t/)
+            field = fields
+            alt = field[2].split(/\//)[1]
+        end
         # Override parsing with
         if options[:eval_chr]
           fields ||= line.split(/\t/)
