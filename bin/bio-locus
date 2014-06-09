@@ -16,7 +16,7 @@ end
 require 'bio-locus'
 require 'optparse'
 
-options = {task: nil, db: 'locus.db', show_help: false, header: 1, in_format: :vcf}
+options = {task: nil, db: 'locus.db', show_help: false, header: 1, in_format: :vcf, alt: :include}
 opts = OptionParser.new do |o|
   o.banner = "Usage: #{File.basename($0)} [options] filename\ne.g. #{File.basename($0)} test.txt"
 
@@ -53,7 +53,7 @@ opts = OptionParser.new do |o|
     options[:db] = fn
   end
 
-  o.on('--in-format [vcf,snv]', [:vcf,:snv], 'Input format (default vcf)') do |par|
+  o.on('--in-format [vcf,cosmic,snv]', [:vcf,:cosmic,:snv], 'Input format (default vcf)') do |par|
     options[:in_format] = par.to_sym
   end
 

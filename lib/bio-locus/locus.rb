@@ -9,27 +9,28 @@ module BioLocus
         fields = nil
         # The default layout (VCF) may or may not work
         chr,pos,id,no_use,alt,rest = line.split(/\t/,6)[0..-1]
-        case options[:in_format]
-          when :snv then
-            fields ||= line.split(/\t/)
-            field = fields
-            alt = field[2].split(/\//)[1]
-        end
-        # Override parsing with
-        if options[:eval_chr]
-          fields ||= line.split(/\t/)
+        if options[:in_format] or options[:eval_chr] or options[:eval_pos] or options[:eval_alt]
+          fields = line.split(/\t/)
           field = fields
-          chr = eval(options[:eval_chr])
-        end
-        if options[:eval_pos] 
-          fields ||= line.split(/\t/)
-          field = fields
-          pos = eval(options[:eval_pos])
-        end
-        if options[:eval_alt] 
-          fields ||= line.split(/\t/)
-          field = fields
-          alt = eval(options[:eval_alt])
+          case options[:in_format]
+            when :snv then
+              alt = field[2].split(/\//)[1]
+            when :cosmic then
+              if field[13] =~ /:/
+                chr = /^([^:]+)/.match(field[13])[1]
+                pos = /:(\d+)-/.match(field[13])[1]
+              end
+          end
+          # Override parsing with
+          if options[:eval_chr]
+            chr = eval(options[:eval_chr])
+          end
+          if options[:eval_pos] 
+            pos = eval(options[:eval_pos])
+          end
+          if options[:eval_alt] 
+            alt = eval(options[:eval_alt])
+          end
         end
         # p [:debug,chr,pos,alt] if options[:debug]
 
