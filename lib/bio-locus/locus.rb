@@ -2,6 +2,9 @@
 module BioLocus
   module Keys
     def Keys::each_key(line,options)
+      use_alt = (options[:alt] == :include or options[:alt] == :only)
+      use_pos = (options[:alt] == :include or options[:alt] == :exclude)
+
       if line =~ /^[[:alnum:]]+/
         fields = nil
         # The default layout (VCF) may or may not work
@@ -28,12 +31,16 @@ module BioLocus
           field = fields
           alt = eval(options[:eval_alt])
         end
-        p [:debug,chr,pos,alt] if options[:debug]
+        # p [:debug,chr,pos,alt] if options[:debug]
 
         # If we have a position emit it
         if pos =~ /^\d+$/ and chr and chr != ''
-          alts = ['']  # position only
-          alts += alt.split(/,/) if options[:include_alt]
+          alts = if use_pos
+                   ['']  
+                 else
+                   []
+                 end
+          alts += alt.split(/,/) if use_alt
           alts.each do | nuc |
             key = chr+"\t"+pos
             key += "\t"+nuc if nuc != ''

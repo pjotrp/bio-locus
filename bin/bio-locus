@@ -22,7 +22,6 @@ opts = OptionParser.new do |o|
 
   o.on("--store", 'Create or add to a cache file') do
     options[:task] = :store
-    options[:include_alt] = true  # always include alt
   end
 
   o.on("--delete", 'Remove matches from a cache file') do
@@ -33,13 +32,22 @@ opts = OptionParser.new do |o|
     options[:task] = :match
   end
 
-  o.on("--include-alt", 'Include chr+pos+ALT VCF field to filter') do
-    options[:include_alt] = true
+  # o.on("--include-alt", 'Include chr+pos+ALT VCF field to filter') do
+  #   options[:include_alt] = true
+  # end
+
+  o.on('--alt [include,exclude,only]', [:include,:exclude,:only],
+  'Include, exclude, only ALT (default include)') do |par|
+    options[:alt] = par.to_sym
   end
 
-  o.on("--exclude-alt", 'Override adding chr+pos+ALT field to store') do
-    options[:exclude_alt] = true
-  end
+  # o.on("--only-alt", 'Only look for chr+pos+ALT field in filter') do
+  #   options[:only_alt] = true
+  # end
+
+  # o.on("--exclude-alt", 'Override adding chr+pos+ALT field to store') do
+  #   options[:exclude_alt] = true
+  # end
 
   o.on("--db filename",String,"Use db file") do | fn |
     options[:db] = fn
@@ -110,7 +118,6 @@ end
 case options[:task] 
   when :store then
     require 'bio-locus/store'
-    options[:include_alt]=false if options[:exclude_alt]
     BioLocus::Store.run(options)
   when :match ,:delete then
     require 'bio-locus/match'

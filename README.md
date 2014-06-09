@@ -82,6 +82,13 @@ of options available through
 bio-locus --help
 ```
 
+The most important one is the handling of ALT. Both with --store and
+--match ALT (chr+pos+alt) can be matched in conjuction with POS
+(chr+pos). When using --alt only, only ALT is matched. When using
+--alt include, both ALT and POS are matched. When using --alt exclude,
+only POS is matched. 
+
+
 ### Deleting keys
 
 To delete entries use 
