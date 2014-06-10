@@ -14,7 +14,7 @@ module BioLocus
           field = fields
           case options[:in_format]
             when :snv then
-              alt = field[2].split(/\//)[1]
+              alt = field[2].split(/\//)[1] if field[2]
             when :cosmic then
               if field[13] =~ /:/
                 chr = /^([^:]+)/.match(field[13])[1]
@@ -41,7 +41,7 @@ module BioLocus
                  else
                    []
                  end
-          alts += alt.split(/,/) if use_alt
+          alts += alt.split(/,/) if use_alt and alt
           alts.each do | nuc |
             key = chr+"\t"+pos
             key += "\t"+nuc if nuc != ''
