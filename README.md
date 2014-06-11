@@ -19,7 +19,7 @@ listed alt alleles. To find positions in another dataset which match
 those in the database:
 
 ```sh
-  bio-locus --match < two.vcf
+  bio-locus --match < two.vcf > matched.vcf
 ```
 
 The point is that this is a two-step process, first create the
@@ -29,7 +29,7 @@ with the --delete switch.
 To match with alt use
 
 ```sh
-  bio-locus --match --include-alt < two.vcf
+  bio-locus --match --alt only < two.vcf > matched.vcf
 ```
 
 Why would you use bio-locus?
@@ -91,16 +91,16 @@ only POS is matched.
 
 ### Deleting keys
 
-To delete entries use 
+To delete entries from the database use 
 
 ```sh
   bio-locus --delete < two.vcf
 ```
 
-To match with alt use
+To delete those that match with alt use
 
 ```sh
-  bio-locus --delete --include-alt < two.vcf
+  bio-locus --delete --alt only < two.vcf
 ```
 
 You may need to run both with and without alt, depending on your needs!
