@@ -1,6 +1,8 @@
 
 module BioLocus
   module Keys
+    @@in_list = {}
+
     def Keys::each_key(line,options)
       use_alt = (options[:alt] == :include or options[:alt] == :only)
       use_pos = (options[:alt] == :include or options[:alt] == :exclude)
@@ -13,6 +15,9 @@ module BioLocus
           fields = line.split(/\t/)
           field = fields
           case options[:in_format]
+            when :tab then
+              # chr,pos,ref,alt
+              alt = field[3].strip.split(/,/)[0] if field[3]
             when :snv then
               alt = field[2].split(/\//)[1] if field[2]
             when :cosmic then
@@ -45,6 +50,11 @@ module BioLocus
           alts.each do | nuc |
             key = chr+"\t"+pos
             key += "\t"+nuc if nuc != ''
+            if options[:once]
+              # check we haven't already sent this out in this run
+              return if @@in_list[key]
+              @@in_list[key] = true
+            end
             yield key
           end
         else

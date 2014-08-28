@@ -53,7 +53,7 @@ opts = OptionParser.new do |o|
     options[:db] = fn
   end
 
-  o.on('--in-format [vcf,cosmic,snv]', [:vcf,:cosmic,:snv], 'Input format (default vcf)') do |par|
+  o.on('--in-format [vcf,tab,cosmic,snv]', [:vcf,:tab,:cosmic,:snv], 'Input format (default vcf)') do |par|
     options[:in_format] = par.to_sym
   end
 
@@ -72,7 +72,7 @@ opts = OptionParser.new do |o|
   o.on("--header num", "Header lines (default 1)") do |l|
     options[:header] = l.to_i
   end
-   
+
   o.on("-q", "--quiet", "Run quietly") do |q|
     options[:quiet] = true
   end
@@ -89,6 +89,10 @@ opts = OptionParser.new do |o|
     options[:ignore_errors] = true
   end
 
+  o.on("--once", "Only one copy stored/matched") do |q|
+    options[:once] = true
+  end
+   
 
   o.separator ""
   o.on_tail('-h', '--help', 'display this help and exit') do
