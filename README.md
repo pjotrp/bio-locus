@@ -127,11 +127,14 @@ Actually, if the --in-format is 'snv', this is exactly what is used.
 COSMIC is pretty large, so it can be useful to cut the database down to the
 variants that you have. The locus information is combined
 in the before last column as chr:start-end, e.g.,
-19:58861911-58861911. This will work:
+19:58861911-58861911. This may work for COSMICv68
 
 ```sh
 bio-locus -i --match --eval-chr='field[13] =~ /^([^:]+)/ ; $1' --eval-pos='field[13] =~ /:(\d+)-/ ; $1 ' < CosmicMutantExportIncFus_v68.tsv
 ```
+
+You may also use the --in-format cosmic switch for supported COSMIC
+versions.
 
 Note the -i switch is needed to skip records that lack position
 information.
