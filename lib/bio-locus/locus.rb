@@ -9,7 +9,8 @@ module BioLocus
 
       if line =~ /^[[:alnum:]]+/
         fields = nil
-        # The default layout (VCF) may or may not work
+        # The default layout (VCF) may or may not work. Critically
+        # chr,pos and alt are expected in positions 0,1,4 respectively.
         chr,pos,id,no_use,alt,rest = line.split(/\t/,6)[0..-1]
         if options[:in_format] or options[:eval_chr] or options[:eval_pos] or options[:eval_alt]
           fields = line.split(/\t/)
@@ -21,9 +22,13 @@ module BioLocus
             when :snv then
               alt = field[2].split(/\//)[1] if field[2]
             when :cosmic then
-              if field[13] =~ /:/
-                chr = /^([^:]+)/.match(field[13])[1]
-                pos = /:(\d+)-/.match(field[13])[1]
+              # COSMIC tsv files, either in field 17 (COSMICv70)
+              locus_field = field[17]
+              locus_field = field[13] if locus_field !~ /:/
+              if field[15] !~ /delet/i and locus_field =~ /:/
+                chr = /^([^:]+)/.match(locus_field)[1]
+                a = /:(\d+)-(\d+)/.match(locus_field)
+                pos = a[1] if a[1]==a[2]
               end
           end
           # Override parsing with
