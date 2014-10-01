@@ -137,7 +137,7 @@ You may also use the --in-format cosmic switch for supported COSMIC
 versions.
 
 Note the -i switch is needed to skip records that lack position
-information.
+information or are non-SNV.
 
 ## Usage
 

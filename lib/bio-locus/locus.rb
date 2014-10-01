@@ -64,7 +64,7 @@ module BioLocus
           end
         else
           if options[:ignore_errors]
-            $stderr.print "WARNING, skipping: ",line if not options[:quiet]
+            $stderr.print "WARNING, <#{chr}:#{pos}> skipping: ",line if not options[:quiet]
           else
             p line
             p fields
