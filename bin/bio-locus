@@ -57,15 +57,15 @@ opts = OptionParser.new do |o|
     options[:in_format] = par.to_sym
   end
 
-  o.on("--eval-chr expr",String,"Evaluate record to retrieve chr name") do | expr |
+  o.on("--eval-chr expr",String,"Evaluate record to retrieve chr name (default field[0])") do | expr |
     options[:eval_chr] = expr
   end
 
-  o.on("--eval-pos expr",String,"Evaluate record to retrieve position") do | expr |
+  o.on("--eval-pos expr",String,"Evaluate record to retrieve position (default field[1])") do | expr |
     options[:eval_pos] = expr
   end
 
-  o.on("--eval-alt expr",String,"Evaluate record to retrieve alt list") do | expr |
+  o.on("--eval-alt expr",String,"Evaluate record to retrieve alt list (default field[4])") do | expr |
     options[:eval_alt] = expr
   end
   
