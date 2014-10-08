@@ -23,7 +23,7 @@ module BioLocus
         end
       end
       store.close
-      $stderr.print "Stored #{count_new} positions out of #{count} in #{options[:db]} (#{count_dup} hits)\n" if !options[:quiet]
+      $stderr.print "Stored #{count_new} positions out of #{count} in #{options[:db]} (#{count_dup} duplicate hits)\n" if !options[:quiet]
     end
   end
 end

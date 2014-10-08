@@ -9,7 +9,8 @@ module BioLocus
       lines = 0 
       count = 0
       in_header = true
-      uniq = {}
+      uniq_match = {}
+      uniq_no_match = {}
       STDIN.each_line do | line |
         if in_header and line =~ /^#/
           # Retain comments in header (for VCF)
@@ -28,8 +29,10 @@ module BioLocus
               store.delete(key)
             else
               print line
-              uniq[key] ||= true
+              uniq_match[key] ||= true
             end
+          else
+            uniq_no_match[key] ||= true
           end
         end
       end
@@ -37,7 +40,7 @@ module BioLocus
       if do_delete
         $stderr.print "\nDeleted #{count} keys in #{options[:db]} reading #{lines} lines !\n" if not options[:quiet]
       else
-        $stderr.print "\nMatched #{count} (unique #{uniq.keys.size}) lines out of #{lines} in #{options[:db]}!\n" if not options[:quiet]
+        $stderr.print "\nMatched #{count} (unique #{uniq_match.keys.size}) lines out of #{lines} (unique #{uniq_no_match.keys.size+uniq_match.keys.size}) in #{options[:db]}!\n" if not options[:quiet]
       end
     end
   end
