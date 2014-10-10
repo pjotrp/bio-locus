@@ -46,21 +46,22 @@ To match with alt use
   bio-locus --match --alt only < two.vcf > matched.vcf
 ```
 
-Why would you use bio-locus?
+So, with bio-locus you can
 
-* To reduce the size of large SNP databases before storage/querying
-* To gain performance
-* To filter on chr+pos (default)
-* To filter on chr+pos+field (where field can be a VCF ALT)
+* reduce the size of large SNP databases before storage/querying
+* gain performance
+* filter on chr+pos (default)
+* filter on chr+pos+field (where field can be a VCF ALT)
 
 Use cases are 
 
-* To filter for annotated variants
+* To filter for annotated variants (including INDELS)
 * To remove common variants from a set
 
 In short a more targeted approach allowing you to work with less data. This
-tool is decently fast. For example, looking for 130 positions in 20 million SNPs
-in GoNL takes 0.11s to store and 1.5 minutes to match on my laptop:
+tool is decently fast. For example, looking for 130 positions in 20 million
+SNPs in GoNL takes 0.11s to store and 1.5 minutes to match on my laptop (using
+localmemcache):
 
 ```sh
 cat my_130_variants.vcf | ./bin/bio-locus --store

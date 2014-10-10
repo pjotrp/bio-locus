@@ -24,7 +24,7 @@ opts = OptionParser.new do |o|
     options[:task] = :store
   end
 
-  o.on("--storage [:serialize,:tokyocabinet,:localmemcache]", [:serialize,:tokyocabinet,:localmemcache], 'Cache type (default :serialize)') do |t|
+  o.on("--storage [:serialize,:tokyocabinet,:localmemcache]", [:serialize,:tokyocabinet,:localmemcache], 'Persistent cache type (default :serialize)') do |t|
     options[:storage] = t
   end
 
