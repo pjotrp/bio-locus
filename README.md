@@ -64,20 +64,23 @@ SNPs in GoNL takes 0.11s to store and 1.5 minutes to match on my laptop (using
 localmemcache):
 
 ```sh
-cat my_130_variants.vcf | ./bin/bio-locus --store
+cat my_130_variants.vcf | ./bin/bio-locus --store --storage :localmemcache
   Stored 130 positions out of 130 in locus.db
   real    0m0.119s
   user    0m0.108s
   sys     0m0.012s
 
-cat gonl.*.vcf |./bin/bio-locus --match
+cat gonl.*.vcf |./bin/bio-locus --match --storage :localmemcache
   Matched 3 out of 20736323 lines in locus.db!
   real    1m34.577s
   user    1m33.602s
   sys     0m1.868s
 ```
 
-Note: for the storage the [moneta](https://github.com/minad/moneta) gem is used, currently with localmemcache.
+Note: for the storage here the
+[moneta](https://github.com/minad/moneta) gem is used, currently with
+localmemcache. The default is Ruby serialization, and :tokyocabinet is
+also supported.
 
 Note: the ALT field is split into components for matching, so A,C
 becomes two chr+pos records, one for A and one for C.
