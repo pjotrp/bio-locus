@@ -16,12 +16,16 @@ end
 require 'bio-locus'
 require 'optparse'
 
-options = {task: nil, db: 'locus.db', show_help: false, header: 1, in_format: :vcf, alt: :include}
+options = {task: nil, db: 'locus.db', show_help: false, header: 1, in_format: :vcf, alt: :include, storage: :YAML}
 opts = OptionParser.new do |o|
   o.banner = "Usage: #{File.basename($0)} [options] filename\ne.g. #{File.basename($0)} test.txt"
 
   o.on("--store", 'Create or add to a cache file') do
     options[:task] = :store
+  end
+
+  o.on("--storage [:TokyoCabinet,:LocalMemCache]", [:TokyoCabinet,:LocalMemCache], 'Cache type (default :TokyoCabinet)') do |t|
+    options[:storage] = t
   end
 
   o.on("--delete", 'Remove matches from a cache file') do

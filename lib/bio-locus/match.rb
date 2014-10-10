@@ -1,11 +1,8 @@
 module BioLocus
-
-  require 'moneta'
-
   module Match
     def Match.run(options)
       do_delete = (options[:task] == :delete)
-      store = Moneta.new(:LocalMemCache, file: options[:db])
+      store = MonetaMapper.new(options)
       lines = 0 
       count = 0
       in_header = true

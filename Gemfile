@@ -9,6 +9,8 @@ group :development do
   gem "cucumber"
   gem "jeweler" 
   gem "bundler"
+  gem "rspec"
 end
+gem "tokyocabinet"
 gem "localmemcache"
 gem "moneta"

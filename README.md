@@ -6,8 +6,22 @@ Bio-locus is a tool for fast querying of genome locations. Many file
 formats in bioinformatics contain records that start with a chromosome
 name and a position for a SNP, or a start-end position for indels.
 
-This tool essentially allows your to store this information in a Hash
-or database:
+This tool essentially allows your to store this chr+pos or chr+pos+alt
+information in a fast database.
+
+Why would you use bio-locus?
+
+1. Fast comparison of VCF files and other formats that use chr+pos
+2. Fast comparison of VCF files and other formats that use chr+pos+alt
+3. See what positions match an EVS or GoNL database
+4. Compare locations from databases such as the TCGA and COSMIC
+5. Comparison of overlap or difference
+
+In principle any of the Moneta supported backends can be used,
+including LocalMemCache, File and TokyoCabinet. Follow the moneta
+instructions to get them working.
+
+Usage: 
 
 ```sh
   bio-locus --store < one.vcf 
