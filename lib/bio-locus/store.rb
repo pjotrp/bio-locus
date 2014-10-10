@@ -2,7 +2,7 @@ module BioLocus
 
   module Store
     def Store.run(options)
-      store = Moneta.new(options)
+      store = DbMapper.factory(options)
       count = count_new = count_dup = 0
       STDIN.each_line do | line |
         Keys::each_key(line,options) do | key |

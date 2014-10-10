@@ -2,7 +2,7 @@ module BioLocus
   module Match
     def Match.run(options)
       do_delete = (options[:task] == :delete)
-      store = MonetaMapper.new(options)
+      store = DbMapper.factory(options)
       lines = 0 
       count = 0
       in_header = true

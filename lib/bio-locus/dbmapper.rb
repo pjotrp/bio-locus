@@ -76,4 +76,14 @@ module BioLocus
     end
   end
 
+  module DbMapper 
+    def factory options
+      case options[:storage]
+        when :tokyocabinet
+          TokyoCabinetMapper.new(options[:store])
+        else
+          SerializeMapper.new(options[:store])
+      end
+    end
+  end
 end

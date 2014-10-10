@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "BioLocus with Serialize" do
   fn = 'biolocus_serialize.db'
-  store = BioLocus::SerializeMapper.new(fn)
+  store = BioLocus::DbMapper.factory({storage: :serialize, store: fn})
   store['test'] = 'yes'
   store['test2'] = 'no'
   a = store['test']
