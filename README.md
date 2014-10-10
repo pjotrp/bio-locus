@@ -18,8 +18,8 @@ Why would you use bio-locus?
 5. Comparison of overlap or difference
 
 In principle any of the Moneta supported backends can be used,
-including LocalMemCache, File and TokyoCabinet. Follow the moneta
-instructions to get them working.
+including LocalMemCache, RubySerialize and TokyoCabinet. The default
+is RubySerialize because it works out of the box.
 
 Usage: 
 
