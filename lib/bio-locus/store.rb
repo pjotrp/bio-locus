@@ -2,11 +2,19 @@ module BioLocus
 
   module Store
     def Store.run(options)
+      invert_match = options[:invert_match]
       store = DbMapper.factory(options)
       count = count_new = count_dup = 0
       STDIN.each_line do | line |
         Keys::each_key(line,options) do | key |
-          if not store[key]
+          has_match = lambda { 
+                               if invert_match
+                                 not store[key]
+                               else
+                                 store[key]
+                               end
+                             }
+          if not has_match.call
             count_new += 1 
             store[key] = true
           else

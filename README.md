@@ -79,8 +79,10 @@ cat gonl.*.vcf |./bin/bio-locus --match --storage :localmemcache
 
 Note: for the storage here the
 [moneta](https://github.com/minad/moneta) gem is used, currently with
-localmemcache. The default is Ruby serialization, and :tokyocabinet is
-also supported.
+localmemcache. The default mode for bio-locus is Ruby serialization,
+and :tokyocabinet is also supported. The larger your data becomes, the
+more likely it is that you need :tokyocabinet because the others are
+more RAM oriented.
 
 Note: the ALT field is split into components for matching, so A,C
 becomes two chr+pos records, one for A and one for C.

@@ -2,6 +2,7 @@ module BioLocus
   module Match
     def Match.run(options)
       do_delete = (options[:task] == :delete)
+      invert_match = options[:invert_match]
       store = DbMapper.factory(options)
       lines = 0 
       count = 0
@@ -19,7 +20,15 @@ module BioLocus
         lines += 1
         $stderr.print '.' if (lines % 1_000_000) == 0 if not options[:quiet]
         Keys::each_key(line,options) do | key |
-          if store[key]
+          has_match = lambda { 
+                               if invert_match
+                                 not store[key]
+                               else
+                                 store[key]
+                               end
+                             }
+          if has_match.call
+            # We have a match
             $stderr.print "Matched <#{key}>\n" if options[:debug]
             count += 1
             if do_delete

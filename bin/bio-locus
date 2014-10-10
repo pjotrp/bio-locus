@@ -72,7 +72,15 @@ opts = OptionParser.new do |o|
   o.on("--eval-alt expr",String,"Evaluate record to retrieve alt list (default field[4])") do | expr |
     options[:eval_alt] = expr
   end
-  
+
+  o.on("--header num", "Header lines (default 1)") do |l|
+    options[:header] = l.to_i
+  end
+
+  o.on("-v", "--invert-match", "Invert the sense of matching, to select non-matching lines") do 
+    options[:invert_match] = true
+  end
+   
   o.on("--header num", "Header lines (default 1)") do |l|
     options[:header] = l.to_i
   end
@@ -81,7 +89,7 @@ opts = OptionParser.new do |o|
     options[:quiet] = true
   end
    
-  o.on("-v", "--verbose", "Run verbosely") do |v|
+  o.on("--verbose", "Run verbosely") do |v|
     options[:verbose] = true
   end
    
