@@ -6,6 +6,6 @@ group :development do
   gem "rspec"
 end
 # The following are optional (Ruby serialize is the default)
-# gem "tokyocabinet"
-# gem "localmemcache"
-# gem "moneta"
+gem "tokyocabinet"
+gem "localmemcache"
+gem "moneta"

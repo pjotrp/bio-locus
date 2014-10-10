@@ -24,7 +24,12 @@ module BioLocus
 
   class MonetaMapper 
     def initialize storage, dbname
-      require 'moneta'
+      begin
+        require 'moneta'
+      rescue LoadError
+        $stderr.print "Error: Missing moneta. Install with command 'gem install moneta'\n"
+        exit 1
+      end
       @store = Moneta.new(storage, file: dbname)
     end
 
@@ -43,7 +48,12 @@ module BioLocus
 
   class TokyoCabinetMapper 
     def initialize dbname
-      require 'tokyocabinet'
+      begin
+        require 'tokyocabinet'
+      rescue LoadError
+        $stderr.print "Error: Missing tokyocabinet. Install with command 'gem install tokyocabinet'\n"
+        exit 1
+      end
       @hdb = TokyoCabinet::HDB::new
       # open the database
       if !@hdb.open(dbname, TokyoCabinet::HDB::OWRITER | TokyoCabinet::HDB::OCREAT)
@@ -77,7 +87,7 @@ module BioLocus
   end
 
   module DbMapper 
-    def factory options
+    def DbMapper::factory options
       case options[:storage]
         when :tokyocabinet
           TokyoCabinetMapper.new(options[:store])
