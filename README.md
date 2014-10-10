@@ -159,15 +159,45 @@ versions.
 Note the -i switch is needed to skip records that lack position
 information or are non-SNV.
 
-## Usage
+## GoNL INDEL example
 
-```ruby
-require 'bio-locus'
+Here an example of filtering out all INDELs that also exist in a
+different dataste, in this case
+[GoNL](http://www.genoomvannederland.nl/) which provides a database of
+population INDELs in VCF format. First we use
+[bio-vcf](https://github.com/pjotrp/bioruby-vcf) to create a
+subset of common INDELS:
+
+```sh
+cat gonl.*.snps_indels.r5.vcf |bio-vcf --filter 'r.info.set=="INDEL" and r.info.af>0.05' > gonl_indel0.05.vcf
 ```
 
-The API doc is online. For more code examples see the test files in
-the source tree.
-        
+Create a locus database from this VCF
+
+```sh
+bio-locus --store --db gonl_indel0.05.db --alt only < gonl_indel0.05.vcf 
+  Stored 480639 positions out of 480639 in gonl_indel0.05.db (0 duplicate hits)
+```
+
+Next, we take our datafile and filter for INDELs that are
+in the population set
+
+```sh
+ bio-locus --match -v --db gonl_indel0.05.db --alt only < varscan2_indel_nfreq30_tfreq30.vcf > /dev/null
+  Matched 635 (unique 75) lines out of 1005 (header 18, unique 174) in gonl_indel0.05.db!
+```
+Which says that 75 INDELs were population matches. We have 635 hits
+because there are multiple samples in this VCF.
+
+This is not what we want in our file, so now we take our datafile and
+filter for INDELs that are *not* in the population set
+
+```sh
+bio-locus --match -v --db gonl_indel0.05.db --alt only < varscan2_indel_nfreq30_tfreq30.vcf > unique_indels.vcf
+  Matched 370 (unique 99) lines out of 1005 (header 18, unique 174) in gonl_indel0.05.db!
+```
+So now we have 99 INDELs for this dataset which are not common INDELs.
+
 ## Project home page
 
 Information on the source tree, documentation, examples, issues and
