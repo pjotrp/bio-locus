@@ -5,6 +5,7 @@ module BioLocus
       invert_match = options[:invert_match]
       store = DbMapper.factory(options)
       lines = 0 
+      header_lines = 0
       count = 0
       in_header = true
       uniq_match = {}
@@ -13,11 +14,16 @@ module BioLocus
         if in_header and line =~ /^#/
           # Retain comments in header (for VCF)
           print line
+          header_lines += 1
           next
         else
           in_header = false
         end
-        lines += 1
+        if line =~ /^#/
+          header_lines += 1
+        else
+          lines += 1
+        end
         $stderr.print '.' if (lines % 1_000_000) == 0 if not options[:quiet]
         Keys::each_key(line,options) do | key |
           has_match = lambda { 
@@ -46,7 +52,7 @@ module BioLocus
       if do_delete
         $stderr.print "\nDeleted #{count} keys in #{options[:db]} reading #{lines} lines !\n" if not options[:quiet]
       else
-        $stderr.print "\nMatched #{count} (unique #{uniq_match.keys.size}) lines out of #{lines} (unique #{uniq_no_match.keys.size+uniq_match.keys.size}) in #{options[:db]}!\n" if not options[:quiet]
+        $stderr.print "\nMatched #{count} (unique #{uniq_match.keys.size}) lines out of #{lines} (header #{header_lines}, unique #{uniq_no_match.keys.size+uniq_match.keys.size}) in #{options[:db]}!\n" if not options[:quiet]
       end
     end
   end
