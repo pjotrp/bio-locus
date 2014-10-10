@@ -55,20 +55,21 @@ module BioLocus
         exit 1
       end
       @hdb = TokyoCabinet::HDB::new
-      # open the database
-      if !@hdb.open(dbname, TokyoCabinet::HDB::OWRITER | TokyoCabinet::HDB::OCREAT)
-        ecode = @hdb.ecode
-        raise sprintf("open error: %s\n", @hdb.errmsg(ecode))
+      if File.exist?(dbname)
+        if !@hdb.open(dbname, TokyoCabinet::HDB::OREADER)
+          ecode = @hdb.ecode
+          raise sprintf("open error: %s\n", @hdb.errmsg(ecode))
+        end
+      else
+        if !@hdb.open(dbname, TokyoCabinet::HDB::OWRITER | TokyoCabinet::HDB::OCREAT)
+          ecode = @hdb.ecode
+          raise sprintf("open error: %s\n", @hdb.errmsg(ecode))
+        end
       end
     end
 
     def [] key
-      value = @hdb.get(key)
-      if not value
-        ecode = @hdb.ecode
-        raise sprintf("get error: %s\n", @hdb.errmsg(ecode))
-      end
-      value
+      @hdb.get(key)
     end
 
     def []= key, value
@@ -88,11 +89,17 @@ module BioLocus
 
   module DbMapper 
     def DbMapper::factory options
+      dbname = options[:db]
+      if File.exist?(dbname)
+        $stderr.print "Database #{dbname} exists!\n"
+      end
       case options[:storage]
         when :tokyocabinet
-          TokyoCabinetMapper.new(options[:db])
+          TokyoCabinetMapper.new(dbname)
+        when :localmemcache
+          MonetaMapper.new(:LocalMemCache,dbname)
         else
-          SerializeMapper.new(options[:db])
+          SerializeMapper.new(dbname)
       end
     end
   end
