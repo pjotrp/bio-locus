@@ -90,9 +90,9 @@ module BioLocus
     def DbMapper::factory options
       case options[:storage]
         when :tokyocabinet
-          TokyoCabinetMapper.new(options[:store])
+          TokyoCabinetMapper.new(options[:db])
         else
-          SerializeMapper.new(options[:store])
+          SerializeMapper.new(options[:db])
       end
     end
   end
