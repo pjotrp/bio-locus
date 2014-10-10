@@ -1,5 +1,27 @@
 module BioLocus
 
+  class SerializeMapper 
+    def initialize dbname
+      @dbname = dbname
+      @h = {}
+      if File.exist?(@dbname)
+        @h = Marshal.load(File.read(@dbname))
+      end
+    end
+
+    def [] key
+      @h[key]
+    end
+
+    def []= key, value
+      @h[key] = value
+    end
+
+    def close
+      File.open(@dbname, 'w') {|f| f.write(Marshal.dump(@h)) }
+    end
+  end
+
   class MonetaMapper 
     def initialize storage, dbname
       require 'moneta'

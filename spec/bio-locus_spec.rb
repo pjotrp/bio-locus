@@ -1,5 +1,17 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
+describe "BioLocus with Serialize" do
+  fn = 'biolocus_serialize.db'
+  store = BioLocus::SerializeMapper.new(fn)
+  store['test'] = 'yes'
+  store['test2'] = 'no'
+  a = store['test']
+  store['test'].should == 'yes'
+  store['test2'].should  == 'no'
+  store.close
+  File.unlink(fn)
+end
+
 describe "BioLocus with Moneta" do
   fn = 'biolocus_moneta_localmemcache.db'
   store = BioLocus::MonetaMapper.new(:LocalMemCache,fn)

@@ -16,7 +16,7 @@ end
 require 'bio-locus'
 require 'optparse'
 
-options = {task: nil, db: 'locus.db', show_help: false, header: 1, in_format: :vcf, alt: :include, storage: :YAML}
+options = {task: nil, db: 'locus.db', show_help: false, header: 1, in_format: :vcf, alt: :include, storage: :serialize}
 opts = OptionParser.new do |o|
   o.banner = "Usage: #{File.basename($0)} [options] filename\ne.g. #{File.basename($0)} test.txt"
 
@@ -24,7 +24,7 @@ opts = OptionParser.new do |o|
     options[:task] = :store
   end
 
-  o.on("--storage [:TokyoCabinet,:LocalMemCache]", [:TokyoCabinet,:LocalMemCache], 'Cache type (default :TokyoCabinet)') do |t|
+  o.on("--storage [:serialize,:tokyocabinet,:localmemcache]", [:serialize,:tokyocabinet,:localmemcache], 'Cache type (default :serialize)') do |t|
     options[:storage] = t
   end
 
