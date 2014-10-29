@@ -16,6 +16,15 @@ Why would you use bio-locus?
 3. See what positions match an EVS or GoNL database
 4. Compare locations from databases such as the TCGA and COSMIC
 5. Comparison of overlap or difference
+6. Parse and store values to reuse later (nyi)
+7. Store seek positions (nyi)
+
+How does bio-locus differ from tabix? Tabix is a fast indexer for
+tabular data. bio-locus does something similar. The difference is that
+bio-locus is more flexible in matching location data, is line 
+based with regex options, can use other back-ends (RAM,
+NoSQL, SQL), and does *not* use bgzip. In other words, bio-locus
+is friendly and more flexible.
 
 In principle any of the Moneta supported backends can be used,
 including LocalMemCache, RubySerialize and TokyoCabinet. The default
