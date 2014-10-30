@@ -15,7 +15,7 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "bio-locus"
-  gem.homepage = "http://github.com/pjotrp/bioruby-locus"
+  gem.homepage = "http://github.com/pjotrp/bio-locus"
   gem.license = "MIT"
   gem.summary = %Q{Fast storage and comparison of chr+pos(+alt) locations}
   gem.description = %Q{A tool for fast querying and filtering of genome locations in VCF and other formats}
