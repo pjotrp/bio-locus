@@ -1,6 +1,6 @@
 # bio-locus
 
-[![Build Status](https://secure.travis-ci.org/pjotrp/bioruby-locus.png)](http://travis-ci.org/pjotrp/bioruby-locus)
+[![Build Status](https://secure.travis-ci.org/pjotrp/bio-locus.png)](http://travis-ci.org/pjotrp/bio-locus)
 
 Bio-locus is a tool for fast querying of genome locations. Many file
 formats in bioinformatics contain records that start with a chromosome
@@ -212,7 +212,7 @@ So now we have 99 INDELs for this dataset which are not common INDELs.
 Information on the source tree, documentation, examples, issues and
 how to contribute, see
 
-  http://github.com/pjotrp/bioruby-locus
+  http://github.com/pjotrp/bio-locus
 
 The BioRuby community is on IRC server: irc.freenode.org, channel: #bioruby.
 
