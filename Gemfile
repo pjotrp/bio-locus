@@ -1,8 +1,7 @@
 source "http://rubygems.org"
 group :development do
-  gem "cucumber"
-  gem "jeweler" 
-  gem "bundler"
+  # gem "cucumber"
+  # gem "bundler"
   gem "rspec"
   gem "tokyocabinet"
   gem "localmemcache"
